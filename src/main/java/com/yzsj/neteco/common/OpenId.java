@@ -27,7 +27,7 @@ public class OpenId {
     @Autowired
     ParseResponse parseResponse;
 
-    public  String getOpenId( String ip , int port, String openidURL){
+    public   String getOpenId( String ip , int port, String openidURL){
 
         List<BasicNameValuePair> parameters = new ArrayList<BasicNameValuePair>();
         parameters.add(new BasicNameValuePair("userid", config.getUserid()));

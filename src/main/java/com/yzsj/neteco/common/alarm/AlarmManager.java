@@ -6,9 +6,7 @@ import com.yzsj.neteco.util.ParseResponse;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPut;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
@@ -43,7 +41,7 @@ public class AlarmManager {
             String url = "https://" + ip + ":" + port + alarmURL;
 
             if (null != parameters) {
-                url += " ";
+                url += "?";
                 boolean init = false;
                 for (BasicNameValuePair e : parameters) {
                     if (!init) {

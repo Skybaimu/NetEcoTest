@@ -2,6 +2,8 @@ package com.yzsj.neteco;
 
 import com.alibaba.fastjson.JSONObject;
 import com.yzsj.neteco.common.Config;
+import com.yzsj.neteco.common.OpenId;
+import com.yzsj.neteco.common.alarm.AlarmManager;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -45,35 +47,46 @@ import java.util.Map;
 public class NetecoApplicationTests {
     @Autowired
     Config config;
+
+
+    String openId="";
     @Test
     public void contextLoads() {
         String url = config.getUrl();
 
-        String url1 = "https://tcc.taobao.com/cc/json/mobile_tel_segment.htm?tel=18314444444";
+//        String url1 = "https://tcc.taobao.com/cc/json/mobile_tel_segment.htm?tel=18314444444";
         int port = config.getPort();
         String ip =config.getIp();
 
         List<BasicNameValuePair> parameters = new ArrayList<BasicNameValuePair>();
-        parameters.add(new BasicNameValuePair("userid", "admin"));
-        parameters.add(new BasicNameValuePair("value", "111111"));
-        parameters.add(new BasicNameValuePair("ipaddress", "10.10.10.10"));
+        parameters.add(new BasicNameValuePair("userid", config.getUserid()));
+        parameters.add(new BasicNameValuePair("value", config.getPassword()));
+        parameters.add(new BasicNameValuePair("ipaddress", config.getIpAddress()));
         Map<String, String> params = new HashMap<>();
-//        String result = getOpenId(ip,port,url1);
-//        String result = (String) getAlarm("",parameters,ip,port,url1);
-        String result1 = sendHttpsRequestByPost(url1,params);
-        System.out.println(result1);
+        if(openId ==""){
+//            OpenId opId = new OpenId();
+//            openId = opId.getOpenId(ip,port,url);
+//            openId = getOpenId(ip,port,url,parameters);
+            openId = getOpenId1(ip,port,url);
+            System.out.println(openId);
+        }
+
+        String result = (String) getAlarm(openId,parameters,ip,port,url);
+//        String result1 = sendHttpsRequestByPost(url1,params);
+//        String result = (String) AlarmManager
+        System.out.println(result);
 
     }
-    public static final  String getOpenId(String ip ,int port,String url1){
+    public static final  String getOpenId(String ip ,int port,String url1,List<BasicNameValuePair> parameters){
          //set the URL
         String userName = "";
         String pwd = "";
         String openidURL = "/rest/openapi/sm/session";
 //set parameters
-        List<BasicNameValuePair> parameters = new ArrayList<BasicNameValuePair>();
+       /* List<BasicNameValuePair> parameters = new ArrayList<BasicNameValuePair>();
         parameters.add(new BasicNameValuePair("userid", userName));
         parameters.add(new BasicNameValuePair("value", pwd));
-        parameters.add(new BasicNameValuePair("ipaddress", "10.10.10.10"));
+        parameters.add(new BasicNameValuePair("ipaddress", "10.10.10.10"));*/
 //create a connection manager
         X509TrustManager tm = new X509TrustManager()
         {
@@ -94,12 +107,12 @@ public class NetecoApplicationTests {
 //set the URL, the ip is NetEco server's IP, port is 32102
             String url = "https://" + ip + ":" + port + openidURL;
 //set the method
-            HttpPut httpPut = new HttpPut(url1);
+            HttpPut httpPut = new HttpPut(url);
             httpPut.setEntity(new UrlEncodedFormEntity(parameters, "UTF-8"));
 //send the request
             HttpResponse response = httpClient.execute(httpPut);
             HttpEntity entity = response.getEntity();
-            System.out.println(EntityUtils.toString(entity));
+//            System.out.println(EntityUtils.toString(entity));
             if(entity != null){
                 retMap = parseResponse(EntityUtils.toString(entity));
             }
@@ -118,7 +131,58 @@ public class NetecoApplicationTests {
 
     }
 
+public String getOpenId1(String ip ,int port,String url1){
+    //set the URL
+    String openidURL = "/rest/openapi/sm/session";
+//set parameters
+    List<BasicNameValuePair> parameters = new ArrayList<BasicNameValuePair>();
+    parameters.add(new BasicNameValuePair("userid", config.getUserid()));
+    parameters.add(new BasicNameValuePair("value", config.getPassword()));
+    parameters.add(new BasicNameValuePair("ipaddress", config.getIpAddress()));
+//create a connection manager
+    X509TrustManager tm = new X509TrustManager()
+    {
+        public void checkClientTrusted(X509Certificate[] xcs, String string) {    }
+        public void checkServerTrusted(X509Certificate[] xcs, String string) {    }
+        public X509Certificate[] getAcceptedIssuers() {     return null;    }
+    };
+//create a SSL connection
+    Map<String, String> retMap = null;
+    try {
+        SSLContext sslcontext = SSLContext.getInstance("TLS");
+        sslcontext.init(null, new TrustManager[] { tm }, null);
+        SSLSocketFactory socketFactory = new SSLSocketFactory(sslcontext, SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+        SchemeRegistry schemeRegistry = new SchemeRegistry();
+        schemeRegistry.register(new Scheme("https", port, socketFactory));
 
+        HttpClient httpClient = new DefaultHttpClient(new BasicClientConnectionManager(schemeRegistry));
+
+        String url = "https://" + ip + ":" + port + openidURL;
+
+        HttpPut httpPut = new HttpPut(url);
+        httpPut.addHeader("Content-Type","application/x-www-form-urlencoded;charset=utf-8");
+        httpPut.setEntity(new UrlEncodedFormEntity(parameters, "UTF-8"));
+
+        HttpResponse response = httpClient.execute(httpPut);
+        HttpEntity entity = response.getEntity();
+//        System.out.println(EntityUtils.toString(entity));
+        if(entity != null){
+            retMap = parseResponse(EntityUtils.toString(entity));
+        }
+    } catch (NoSuchAlgorithmException e) {
+        e.printStackTrace();
+    } catch (KeyManagementException e) {
+        e.printStackTrace();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+    if (retMap.get("code").equals("0"))
+    {
+        return retMap.get("data");
+    }
+    return "";
+
+}
 
     public static Object getAlarm(String openid,List<BasicNameValuePair> parameters,String ip ,int port,String url1) {
         //set the URL
@@ -126,9 +190,10 @@ public class NetecoApplicationTests {
 //set headers
         List<BasicNameValuePair> headers = new ArrayList<BasicNameValuePair>();
 //openid is get from interface "/rest/openapi/sm/session"
+        System.out.println(openid);
         headers.add(new BasicNameValuePair("openid", openid));
 //pageSize is HTTP header parameter
-        headers.add(new BasicNameValuePair("pageSize", "10"));
+        headers.add(new BasicNameValuePair("pageSize", "100"));
 //create a connection manager
         X509TrustManager tm = new X509TrustManager() {
             public void checkClientTrusted(X509Certificate[] xcs, String string) {
@@ -154,7 +219,7 @@ public class NetecoApplicationTests {
             String url = "https://" + ip + ":" + port + queryNeURL;
 //set parameters
             if (null != parameters) {
-                url += " ";
+                url += "?";
                 boolean init = false;
                 for (BasicNameValuePair e : parameters) {
                     if (!init) {
@@ -165,7 +230,7 @@ public class NetecoApplicationTests {
                     }
                 }
             }
-            HttpGet httpGet = new HttpGet(url1);
+            HttpGet httpGet = new HttpGet(url);
 //set headers
             if (null != headers) {
                 for (BasicNameValuePair header : headers) {
