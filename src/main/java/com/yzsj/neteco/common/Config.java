@@ -19,7 +19,7 @@ com.yzsj.resources.neteco.keystore.password=Changeme_123
 * */
 @Configuration
 @Component
-public class Config {
+public  class Config {
     @Value("${com.yzsj.resources.neteco.ip}")
     private String ip;
 
