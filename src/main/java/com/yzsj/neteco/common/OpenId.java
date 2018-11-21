@@ -16,7 +16,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
+/**
+ * 获取openId
+ * @author baimu
+ * @date 2018-11-21
+ *
+ * */
 public class OpenId {
     @Autowired
     Config config;
@@ -27,6 +32,9 @@ public class OpenId {
     @Autowired
     ParseResponse parseResponse;
 
+    /**
+     * @param ip port openidURL
+     * */
     public   String getOpenId( String ip , int port, String openidURL){
 
         List<BasicNameValuePair> parameters = new ArrayList<BasicNameValuePair>();

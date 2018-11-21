@@ -6,6 +6,7 @@ import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.BasicClientConnectionManager;
+import org.apache.http.params.CoreConnectionPNames;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
@@ -45,6 +46,10 @@ public class InitHttpClient {
             schemeRegistry.register(new Scheme("https", port, socketFactory));
 
             HttpClient httpClient = new DefaultHttpClient(new BasicClientConnectionManager(schemeRegistry));
+            //设置数据连接超时时间
+            httpClient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT,2000);
+            //设置数据传输超时时间
+            httpClient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT,3000);
             return httpClient;
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();

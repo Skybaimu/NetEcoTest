@@ -1,5 +1,7 @@
 package com.yzsj.neteco;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.yzsj.neteco.common.Config;
 import com.yzsj.neteco.common.OpenId;
@@ -28,6 +30,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.json.JsonbTester;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.net.ssl.*;
@@ -463,6 +466,31 @@ public String getOpenId1(String ip ,int port,String url1){
             httpClient.getConnectionManager().shutdown();
         }
         return responseContent;
+    }
+
+    @Test
+    public  void getJson(){
+        String ret = "{\"code\": 0,\"data\": [{\"resultTime\": 1541844764,\"measObject\": null,\"period\": 0,\"neTypeID\": 41000,\"dn\": \"NE=33554442.41000-21506\",\"parentDn\": \"NE=33554439\"}, {\"resultTime\": 1541844764,\"measObject\": null,\"period\": 0,\"neTypeID\": 41000,\"dn\": \"NE=33554442.41000-21506\",\"parentDn\": \"NE=33554439\"}],\"description\": \"Operation success.\",\"pageSize\": 20,\"totalPage\": 12,\"currentPage\": 1}";
+        System.out.println(ret);
+        Map<String,Object> parse = (Map<String,Object>)JSON.parse(ret);
+        Map<String,String> retMap = new ParseResponse().getParseResponse(ret);
+        List<Map<String,Object>> data = (List<Map<String,Object>>)parse.get("data");
+        List<Map<String,Object>> data1= (List<Map<String,Object>>)JSONArray.parse(retMap.get("data"));
+        System.out.println(data);
+        String neId = "41000";
+        HashMap<String, Map<String, Object>> stringMapHashMap = new HashMap<>();
+        for(Map<String,Object> d : data){
+            stringMapHashMap.put(String.valueOf(d.get("neTypeID")),d);
+        }
+        Map<String, Object> stringObjectMap = stringMapHashMap.get(neId);
+        System.out.println(stringObjectMap.get("resultTime"));
+       /*Map<String,String> retMap = new ParseResponse().getParseResponse(ret);
+        if (retMap.get("code").equals("0")) {
+            //调用方法将结果集转化为推送数据
+            String result =  retMap.get("data");
+            List<Map<String,String>>  list= JSONArray.parseObject(result);
+            System.out.println(object);
+        }*/
     }
 
 
