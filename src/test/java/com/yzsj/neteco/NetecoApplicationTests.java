@@ -7,6 +7,7 @@ import com.yzsj.neteco.common.Config;
 import com.yzsj.neteco.common.OpenId;
 import com.yzsj.neteco.common.alarm.AlarmManager;
 import com.yzsj.neteco.util.InitHttpClient;
+import com.yzsj.neteco.util.POIUtil;
 import com.yzsj.neteco.util.ParseResponse;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -34,6 +35,7 @@ import org.springframework.boot.test.json.JsonbTester;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.net.ssl.*;
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -491,6 +493,27 @@ public String getOpenId1(String ip ,int port,String url1){
             List<Map<String,String>>  list= JSONArray.parseObject(result);
             System.out.println(object);
         }*/
+    }
+
+    @Test
+    public  void fileTest() throws IOException {
+        POIUtil poiUtil = new POIUtil();
+        String realPath = POIUtil.class.getClassLoader().getResource("").getPath();
+        String path = "F:\\baimu\\工作文件\\华为微模块测试\\TestData-lyj\\TestData-lyj\\excelTest.xlsx";
+        List<String[] > list = POIUtil.readExcel(path);
+        String path1 = new File("").getAbsolutePath();
+
+        System.out.println(path1);
+        Map<String ,String> map = new HashMap<>();
+        for (String[] strings: list) {
+            map.put(strings[0],strings[1]);
+            for (String str: strings) {
+                System.out.println(str);
+            }
+        }
+        System.out.println(map.get("8941"));
+//        System.out.println(list);
+
     }
 
 

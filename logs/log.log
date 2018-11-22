@@ -1,256 +1,90 @@
-2018-11-21 16:40:34.965  INFO 18564 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Starting NetecoApplicationTests on DESKTOP-Q8ABO4B with PID 18564 (started by Skyba in F:\Code\IDEA\NetEcoTest)
-2018-11-21 16:40:34.981  INFO 18564 --- [main] com.yzsj.neteco.NetecoApplicationTests   : No active profile set, falling back to default profiles: default
-2018-11-21 16:40:35.926  INFO 18564 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2018-11-21 16:40:35.933  INFO 18564 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2018-11-21 16:40:35.991  INFO 18564 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 32ms. Found 0 repository interfaces.
-2018-11-21 16:40:36.507  WARN 18564 --- [main] o.s.w.c.s.GenericWebApplicationContext   : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'initPmdata': Invocation of init method failed; nested exception is java.lang.NullPointerException
-2018-11-21 16:40:36.517  INFO 18564 --- [main] ConditionEvaluationReportLoggingListener : 
-
-Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
-2018-11-21 16:40:36.525 ERROR 18564 --- [main] o.s.boot.SpringApplication               : Application run failed
-
-org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'initPmdata': Invocation of init method failed; nested exception is java.lang.NullPointerException
-	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor.postProcessBeforeInitialization(InitDestroyAnnotationBeanPostProcessor.java:139) ~[spring-beans-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsBeforeInitialization(AbstractAutowireCapableBeanFactory.java:419) ~[spring-beans-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1737) ~[spring-beans-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:576) ~[spring-beans-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:498) ~[spring-beans-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320) ~[spring-beans-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory$$Lambda$118/1564698139.getObject(Unknown Source) ~[na:na]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222) ~[spring-beans-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318) ~[spring-beans-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:846) ~[spring-beans-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:863) ~[spring-context-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:546) ~[spring-context-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775) ~[spring-boot-2.1.0.RELEASE.jar:2.1.0.RELEASE]
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) ~[spring-boot-2.1.0.RELEASE.jar:2.1.0.RELEASE]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) ~[spring-boot-2.1.0.RELEASE.jar:2.1.0.RELEASE]
-	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:127) [spring-boot-test-2.1.0.RELEASE.jar:2.1.0.RELEASE]
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:99) [spring-test-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:117) [spring-test-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:108) [spring-test-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:190) [spring-test-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:132) [spring-test-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:246) [spring-test-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:227) [spring-test-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289) [spring-test-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit-4.12.jar:4.12]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291) [spring-test-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:246) [spring-test-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:97) [spring-test-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268) [junit-4.12.jar:4.12]
-	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61) [spring-test-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70) [spring-test-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:363) [junit-4.12.jar:4.12]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:190) [spring-test-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.junit.runner.JUnitCore.run(JUnitCore.java:137) [junit-4.12.jar:4.12]
-	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:68) [junit-rt.jar:na]
-	at com.intellij.rt.execution.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:47) [junit-rt.jar:na]
-	at com.intellij.rt.execution.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:242) [junit-rt.jar:na]
-	at com.intellij.rt.execution.junit.JUnitStarter.main(JUnitStarter.java:70) [junit-rt.jar:na]
-Caused by: java.lang.NullPointerException: null
-	at com.yzsj.neteco.common.InitPmdata.initOpenIdAndHttpClient(InitPmdata.java:55) ~[classes/:na]
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_45]
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_45]
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_45]
-	at java.lang.reflect.Method.invoke(Method.java:497) ~[na:1.8.0_45]
-	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleElement.invoke(InitDestroyAnnotationBeanPostProcessor.java:363) ~[spring-beans-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMetadata.invokeInitMethods(InitDestroyAnnotationBeanPostProcessor.java:307) ~[spring-beans-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor.postProcessBeforeInitialization(InitDestroyAnnotationBeanPostProcessor.java:136) ~[spring-beans-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	... 42 common frames omitted
-
-2018-11-21 16:40:36.530 ERROR 18564 --- [main] o.s.test.context.TestContextManager      : Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener@293a5bf6] to prepare test instance [com.yzsj.neteco.NetecoApplicationTests@48e7b3d2]
-
-java.lang.IllegalStateException: Failed to load ApplicationContext
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:125) ~[spring-test-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:108) ~[spring-test-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:190) ~[spring-test-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:132) ~[spring-test-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:246) ~[spring-test-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:227) [spring-test-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289) [spring-test-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12) [junit-4.12.jar:4.12]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291) [spring-test-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:246) [spring-test-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:97) [spring-test-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58) [junit-4.12.jar:4.12]
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268) [junit-4.12.jar:4.12]
-	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61) [spring-test-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70) [spring-test-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:363) [junit-4.12.jar:4.12]
-	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:190) [spring-test-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.junit.runner.JUnitCore.run(JUnitCore.java:137) [junit-4.12.jar:4.12]
-	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:68) [junit-rt.jar:na]
-	at com.intellij.rt.execution.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:47) [junit-rt.jar:na]
-	at com.intellij.rt.execution.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:242) [junit-rt.jar:na]
-	at com.intellij.rt.execution.junit.JUnitStarter.main(JUnitStarter.java:70) [junit-rt.jar:na]
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'initPmdata': Invocation of init method failed; nested exception is java.lang.NullPointerException
-	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor.postProcessBeforeInitialization(InitDestroyAnnotationBeanPostProcessor.java:139) ~[spring-beans-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsBeforeInitialization(AbstractAutowireCapableBeanFactory.java:419) ~[spring-beans-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1737) ~[spring-beans-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:576) ~[spring-beans-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:498) ~[spring-beans-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:320) ~[spring-beans-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory$$Lambda$118/1564698139.getObject(Unknown Source) ~[na:na]
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:222) ~[spring-beans-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:318) ~[spring-beans-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199) ~[spring-beans-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:846) ~[spring-beans-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:863) ~[spring-context-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:546) ~[spring-context-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775) ~[spring-boot-2.1.0.RELEASE.jar:2.1.0.RELEASE]
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) ~[spring-boot-2.1.0.RELEASE.jar:2.1.0.RELEASE]
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) ~[spring-boot-2.1.0.RELEASE.jar:2.1.0.RELEASE]
-	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:127) ~[spring-boot-test-2.1.0.RELEASE.jar:2.1.0.RELEASE]
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:99) ~[spring-test-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:117) ~[spring-test-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	... 24 common frames omitted
-Caused by: java.lang.NullPointerException: null
-	at com.yzsj.neteco.common.InitPmdata.initOpenIdAndHttpClient(InitPmdata.java:55) ~[classes/:na]
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_45]
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_45]
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_45]
-	at java.lang.reflect.Method.invoke(Method.java:497) ~[na:1.8.0_45]
-	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleElement.invoke(InitDestroyAnnotationBeanPostProcessor.java:363) ~[spring-beans-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMetadata.invokeInitMethods(InitDestroyAnnotationBeanPostProcessor.java:307) ~[spring-beans-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor.postProcessBeforeInitialization(InitDestroyAnnotationBeanPostProcessor.java:136) ~[spring-beans-5.1.2.RELEASE.jar:5.1.2.RELEASE]
-	... 42 common frames omitted
-
-2018-11-21 16:41:40.617  INFO 1096 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Starting NetecoApplicationTests on DESKTOP-Q8ABO4B with PID 1096 (started by Skyba in F:\Code\IDEA\NetEcoTest)
-2018-11-21 16:41:40.619  INFO 1096 --- [main] com.yzsj.neteco.NetecoApplicationTests   : No active profile set, falling back to default profiles: default
-2018-11-21 16:41:41.398  INFO 1096 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2018-11-21 16:41:41.402  INFO 1096 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2018-11-21 16:41:41.444  INFO 1096 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 24ms. Found 0 repository interfaces.
-2018-11-21 16:41:42.804  INFO 1096 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2018-11-21 16:41:43.094  WARN 1096 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
-2018-11-21 16:41:43.771  INFO 1096 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Started NetecoApplicationTests in 3.643 seconds (JVM running for 4.967)
-2018-11-21 16:41:44.018  INFO 1096 --- [Thread-2] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2018-11-21 16:48:42.853  INFO 14872 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Starting NetecoApplicationTests on DESKTOP-Q8ABO4B with PID 14872 (started by Skyba in F:\Code\IDEA\NetEcoTest)
-2018-11-21 16:48:42.855  INFO 14872 --- [main] com.yzsj.neteco.NetecoApplicationTests   : No active profile set, falling back to default profiles: default
-2018-11-21 16:48:43.856  INFO 14872 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2018-11-21 16:48:43.862  INFO 14872 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2018-11-21 16:48:43.911  INFO 14872 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 28ms. Found 0 repository interfaces.
-2018-11-21 16:48:45.276  INFO 14872 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2018-11-21 16:48:45.547  WARN 14872 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
-2018-11-21 16:48:46.244  INFO 14872 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Started NetecoApplicationTests in 3.89 seconds (JVM running for 5.112)
-2018-11-21 16:48:46.487  INFO 14872 --- [Thread-2] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2018-11-21 16:52:49.508  INFO 25156 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Starting NetecoApplicationTests on DESKTOP-Q8ABO4B with PID 25156 (started by Skyba in F:\Code\IDEA\NetEcoTest)
-2018-11-21 16:52:49.509  INFO 25156 --- [main] com.yzsj.neteco.NetecoApplicationTests   : No active profile set, falling back to default profiles: default
-2018-11-21 16:52:50.344  INFO 25156 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2018-11-21 16:52:50.350  INFO 25156 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2018-11-21 16:52:50.394  INFO 25156 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 26ms. Found 0 repository interfaces.
-2018-11-21 16:53:03.596  INFO 11856 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Starting NetecoApplicationTests on DESKTOP-Q8ABO4B with PID 11856 (started by Skyba in F:\Code\IDEA\NetEcoTest)
-2018-11-21 16:53:03.599  INFO 11856 --- [main] com.yzsj.neteco.NetecoApplicationTests   : No active profile set, falling back to default profiles: default
-2018-11-21 16:53:04.786  INFO 11856 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2018-11-21 16:53:04.792  INFO 11856 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2018-11-21 16:53:04.856  INFO 11856 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 32ms. Found 0 repository interfaces.
-2018-11-21 16:53:06.456  INFO 11856 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2018-11-21 16:53:06.749  WARN 11856 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
-2018-11-21 16:53:07.648  INFO 11856 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Started NetecoApplicationTests in 4.703 seconds (JVM running for 6.734)
-2018-11-21 17:04:47.692  INFO 11856 --- [Thread-2] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2018-11-21 17:05:04.334  INFO 26520 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Starting NetecoApplicationTests on DESKTOP-Q8ABO4B with PID 26520 (started by Skyba in F:\Code\IDEA\NetEcoTest)
-2018-11-21 17:05:04.336  INFO 26520 --- [main] com.yzsj.neteco.NetecoApplicationTests   : No active profile set, falling back to default profiles: default
-2018-11-21 17:05:05.637  INFO 26520 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2018-11-21 17:05:05.644  INFO 26520 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2018-11-21 17:05:05.699  INFO 26520 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 29ms. Found 0 repository interfaces.
-2018-11-21 17:05:07.556  INFO 26520 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2018-11-21 17:05:07.898  WARN 26520 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
-2018-11-21 17:05:08.835  INFO 26520 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Started NetecoApplicationTests in 5.096 seconds (JVM running for 7.125)
-2018-11-21 17:06:30.592  INFO 26520 --- [Thread-2] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2018-11-21 17:12:14.050  INFO 15832 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Starting NetecoApplicationTests on DESKTOP-Q8ABO4B with PID 15832 (started by Skyba in F:\Code\IDEA\NetEcoTest)
-2018-11-21 17:12:14.052  INFO 15832 --- [main] com.yzsj.neteco.NetecoApplicationTests   : No active profile set, falling back to default profiles: default
-2018-11-21 17:12:15.124  INFO 15832 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2018-11-21 17:12:15.130  INFO 15832 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2018-11-21 17:12:15.180  INFO 15832 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 27ms. Found 0 repository interfaces.
-2018-11-21 17:12:17.077  INFO 15832 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2018-11-21 17:12:17.378  WARN 15832 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
-2018-11-21 17:12:18.256  INFO 15832 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Started NetecoApplicationTests in 4.86 seconds (JVM running for 6.876)
-2018-11-21 17:12:22.576  INFO 15832 --- [Thread-2] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2018-11-21 17:14:45.506  INFO 11108 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Starting NetecoApplicationTests on DESKTOP-Q8ABO4B with PID 11108 (started by Skyba in F:\Code\IDEA\NetEcoTest)
-2018-11-21 17:14:45.508  INFO 11108 --- [main] com.yzsj.neteco.NetecoApplicationTests   : No active profile set, falling back to default profiles: default
-2018-11-21 17:14:46.577  INFO 11108 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2018-11-21 17:14:46.583  INFO 11108 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2018-11-21 17:14:46.624  INFO 11108 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 24ms. Found 0 repository interfaces.
-2018-11-21 17:14:48.555  INFO 11108 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2018-11-21 17:14:48.889  WARN 11108 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
-2018-11-21 17:14:49.805  INFO 11108 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Started NetecoApplicationTests in 4.83 seconds (JVM running for 7.166)
-2018-11-21 17:18:28.708  INFO 11108 --- [Thread-2] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2018-11-21 17:18:48.133  INFO 26364 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Starting NetecoApplicationTests on DESKTOP-Q8ABO4B with PID 26364 (started by Skyba in F:\Code\IDEA\NetEcoTest)
-2018-11-21 17:18:48.135  INFO 26364 --- [main] com.yzsj.neteco.NetecoApplicationTests   : No active profile set, falling back to default profiles: default
-2018-11-21 17:18:49.562  INFO 26364 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2018-11-21 17:18:49.568  INFO 26364 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2018-11-21 17:18:49.631  INFO 26364 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 41ms. Found 0 repository interfaces.
-2018-11-21 17:18:51.614  INFO 26364 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2018-11-21 17:18:51.919  WARN 26364 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
-2018-11-21 17:18:53.175  INFO 26364 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Started NetecoApplicationTests in 5.604 seconds (JVM running for 8.03)
-2018-11-21 17:18:58.081  INFO 26364 --- [Thread-2] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2018-11-21 17:30:02.786  INFO 25908 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Starting NetecoApplicationTests on DESKTOP-Q8ABO4B with PID 25908 (started by Skyba in F:\Code\IDEA\NetEcoTest)
-2018-11-21 17:30:02.788  INFO 25908 --- [main] com.yzsj.neteco.NetecoApplicationTests   : No active profile set, falling back to default profiles: default
-2018-11-21 17:30:03.835  INFO 25908 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2018-11-21 17:30:03.840  INFO 25908 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2018-11-21 17:30:03.894  INFO 25908 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 29ms. Found 0 repository interfaces.
-2018-11-21 17:30:05.716  INFO 25908 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2018-11-21 17:30:05.992  WARN 25908 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
-2018-11-21 17:30:07.105  INFO 25908 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Started NetecoApplicationTests in 4.814 seconds (JVM running for 7.388)
-2018-11-21 17:30:07.488  INFO 25908 --- [Thread-2] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2018-11-21 17:40:54.670  INFO 16560 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Starting NetecoApplicationTests on DESKTOP-Q8ABO4B with PID 16560 (started by Skyba in F:\Code\IDEA\NetEcoTest)
-2018-11-21 17:40:54.671  INFO 16560 --- [main] com.yzsj.neteco.NetecoApplicationTests   : No active profile set, falling back to default profiles: default
-2018-11-21 17:40:55.965  INFO 16560 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2018-11-21 17:40:55.971  INFO 16560 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2018-11-21 17:40:56.023  INFO 16560 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 27ms. Found 0 repository interfaces.
-2018-11-21 17:40:58.059  INFO 16560 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2018-11-21 17:40:58.370  WARN 16560 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
-2018-11-21 17:40:59.410  INFO 16560 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Started NetecoApplicationTests in 5.396 seconds (JVM running for 7.778)
-2018-11-21 17:42:25.352  INFO 16560 --- [Thread-2] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2018-11-21 17:43:00.372  INFO 14528 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Starting NetecoApplicationTests on DESKTOP-Q8ABO4B with PID 14528 (started by Skyba in F:\Code\IDEA\NetEcoTest)
-2018-11-21 17:43:00.375  INFO 14528 --- [main] com.yzsj.neteco.NetecoApplicationTests   : No active profile set, falling back to default profiles: default
-2018-11-21 17:43:01.632  INFO 14528 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2018-11-21 17:43:01.638  INFO 14528 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2018-11-21 17:43:01.693  INFO 14528 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 28ms. Found 0 repository interfaces.
-2018-11-21 17:43:03.551  INFO 14528 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2018-11-21 17:43:03.825  WARN 14528 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
-2018-11-21 17:43:04.726  INFO 14528 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Started NetecoApplicationTests in 4.912 seconds (JVM running for 7.041)
-2018-11-21 18:16:24.597  INFO 14528 --- [Thread-2] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2018-11-21 18:16:31.464  INFO 11616 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Starting NetecoApplicationTests on DESKTOP-Q8ABO4B with PID 11616 (started by Skyba in F:\Code\IDEA\NetEcoTest)
-2018-11-21 18:16:31.466  INFO 11616 --- [main] com.yzsj.neteco.NetecoApplicationTests   : No active profile set, falling back to default profiles: default
-2018-11-21 18:16:32.718  INFO 11616 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2018-11-21 18:16:32.723  INFO 11616 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2018-11-21 18:16:32.769  INFO 11616 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 23ms. Found 0 repository interfaces.
-2018-11-21 18:16:34.717  INFO 11616 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2018-11-21 18:16:35.014  WARN 11616 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
-2018-11-21 18:16:35.945  INFO 11616 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Started NetecoApplicationTests in 5.112 seconds (JVM running for 7.241)
-2018-11-21 18:21:52.221  INFO 9796 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Starting NetecoApplicationTests on DESKTOP-Q8ABO4B with PID 9796 (started by Skyba in F:\Code\IDEA\NetEcoTest)
-2018-11-21 18:21:52.223  INFO 9796 --- [main] com.yzsj.neteco.NetecoApplicationTests   : No active profile set, falling back to default profiles: default
-2018-11-21 18:21:53.223  INFO 9796 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2018-11-21 18:21:53.229  INFO 9796 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2018-11-21 18:21:53.282  INFO 9796 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 27ms. Found 0 repository interfaces.
-2018-11-21 18:21:55.197  INFO 9796 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2018-11-21 18:21:55.543  WARN 9796 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
-2018-11-21 18:21:56.891  INFO 9796 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Started NetecoApplicationTests in 5.203 seconds (JVM running for 7.66)
-2018-11-21 18:22:04.009  INFO 9796 --- [Thread-2] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2018-11-21 18:24:11.697  INFO 29160 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Starting NetecoApplicationTests on DESKTOP-Q8ABO4B with PID 29160 (started by Skyba in F:\Code\IDEA\NetEcoTest)
-2018-11-21 18:24:11.700  INFO 29160 --- [main] com.yzsj.neteco.NetecoApplicationTests   : No active profile set, falling back to default profiles: default
-2018-11-21 18:24:12.774  INFO 29160 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2018-11-21 18:24:12.780  INFO 29160 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2018-11-21 18:24:12.855  INFO 29160 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 51ms. Found 0 repository interfaces.
-2018-11-21 18:24:14.921  INFO 29160 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2018-11-21 18:24:15.215  WARN 29160 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
-2018-11-21 18:24:16.272  INFO 29160 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Started NetecoApplicationTests in 5.202 seconds (JVM running for 7.278)
-2018-11-21 18:24:24.912  INFO 29160 --- [Thread-2] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2018-11-21 18:24:50.469  INFO 3912 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Starting NetecoApplicationTests on DESKTOP-Q8ABO4B with PID 3912 (started by Skyba in F:\Code\IDEA\NetEcoTest)
-2018-11-21 18:24:50.471  INFO 3912 --- [main] com.yzsj.neteco.NetecoApplicationTests   : No active profile set, falling back to default profiles: default
-2018-11-21 18:24:51.642  INFO 3912 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
-2018-11-21 18:24:51.648  INFO 3912 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2018-11-21 18:24:51.691  INFO 3912 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 23ms. Found 0 repository interfaces.
-2018-11-21 18:24:53.652  INFO 3912 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2018-11-21 18:24:53.921  WARN 3912 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
-2018-11-21 18:24:54.975  INFO 3912 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Started NetecoApplicationTests in 5.301 seconds (JVM running for 7.532)
-2018-11-21 18:26:02.489  INFO 3912 --- [Thread-2] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2018-11-22 11:32:56.094  INFO 24848 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Starting NetecoApplicationTests on DESKTOP-Q8ABO4B with PID 24848 (started by Skyba in F:\Code\IDEA\NetEcoTest)
+2018-11-22 11:32:56.150  INFO 24848 --- [main] com.yzsj.neteco.NetecoApplicationTests   : No active profile set, falling back to default profiles: default
+2018-11-22 11:32:57.067  INFO 24848 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2018-11-22 11:32:57.091  INFO 24848 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2018-11-22 11:32:57.144  INFO 24848 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 27ms. Found 0 repository interfaces.
+2018-11-22 11:32:58.947  INFO 24848 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2018-11-22 11:32:59.202  WARN 24848 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2018-11-22 11:33:00.197  INFO 24848 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Started NetecoApplicationTests in 4.761 seconds (JVM running for 6.97)
+2018-11-22 11:36:56.879  INFO 24848 --- [Thread-2] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2018-11-22 11:37:17.900  INFO 4308 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Starting NetecoApplicationTests on DESKTOP-Q8ABO4B with PID 4308 (started by Skyba in F:\Code\IDEA\NetEcoTest)
+2018-11-22 11:37:17.902  INFO 4308 --- [main] com.yzsj.neteco.NetecoApplicationTests   : No active profile set, falling back to default profiles: default
+2018-11-22 11:37:18.817  INFO 4308 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2018-11-22 11:37:18.823  INFO 4308 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2018-11-22 11:37:18.878  INFO 4308 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 35ms. Found 0 repository interfaces.
+2018-11-22 11:37:20.734  INFO 4308 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2018-11-22 11:37:21.019  WARN 4308 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2018-11-22 11:37:21.914  INFO 4308 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Started NetecoApplicationTests in 4.501 seconds (JVM running for 6.288)
+2018-11-22 11:37:42.348  INFO 4308 --- [Thread-2] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2018-11-22 11:46:38.173  INFO 24544 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Starting NetecoApplicationTests on DESKTOP-Q8ABO4B with PID 24544 (started by Skyba in F:\Code\IDEA\NetEcoTest)
+2018-11-22 11:46:38.176  INFO 24544 --- [main] com.yzsj.neteco.NetecoApplicationTests   : No active profile set, falling back to default profiles: default
+2018-11-22 11:46:39.136  INFO 24544 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2018-11-22 11:46:39.142  INFO 24544 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2018-11-22 11:46:39.179  INFO 24544 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 21ms. Found 0 repository interfaces.
+2018-11-22 11:46:40.851  INFO 24544 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2018-11-22 11:46:41.189  WARN 24544 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2018-11-22 11:46:42.189  INFO 24544 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Started NetecoApplicationTests in 4.529 seconds (JVM running for 6.45)
+2018-11-22 11:47:18.150  INFO 24544 --- [Thread-2] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2018-11-22 11:47:26.467  INFO 20308 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Starting NetecoApplicationTests on DESKTOP-Q8ABO4B with PID 20308 (started by Skyba in F:\Code\IDEA\NetEcoTest)
+2018-11-22 11:47:26.469  INFO 20308 --- [main] com.yzsj.neteco.NetecoApplicationTests   : No active profile set, falling back to default profiles: default
+2018-11-22 11:47:27.347  INFO 20308 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2018-11-22 11:47:27.353  INFO 20308 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2018-11-22 11:47:27.394  INFO 20308 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 24ms. Found 0 repository interfaces.
+2018-11-22 11:47:29.060  INFO 20308 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2018-11-22 11:47:29.388  WARN 20308 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2018-11-22 11:47:30.352  INFO 20308 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Started NetecoApplicationTests in 4.388 seconds (JVM running for 6.196)
+2018-11-22 11:52:22.938  INFO 20308 --- [Thread-2] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2018-11-22 13:11:48.754  INFO 13512 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Starting NetecoApplicationTests on DESKTOP-Q8ABO4B with PID 13512 (started by Skyba in F:\Code\IDEA\NetEcoTest)
+2018-11-22 13:11:48.759  INFO 13512 --- [main] com.yzsj.neteco.NetecoApplicationTests   : No active profile set, falling back to default profiles: default
+2018-11-22 13:11:49.956  INFO 13512 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2018-11-22 13:11:49.963  INFO 13512 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2018-11-22 13:11:50.009  INFO 13512 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 27ms. Found 0 repository interfaces.
+2018-11-22 13:11:51.938  INFO 13512 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2018-11-22 13:11:52.216  WARN 13512 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2018-11-22 13:11:53.187  INFO 13512 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Started NetecoApplicationTests in 5.005 seconds (JVM running for 7.072)
+2018-11-22 13:36:13.100  INFO 13512 --- [Thread-2] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2018-11-22 13:36:19.779  INFO 6700 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Starting NetecoApplicationTests on DESKTOP-Q8ABO4B with PID 6700 (started by Skyba in F:\Code\IDEA\NetEcoTest)
+2018-11-22 13:36:19.782  INFO 6700 --- [main] com.yzsj.neteco.NetecoApplicationTests   : No active profile set, falling back to default profiles: default
+2018-11-22 13:36:20.762  INFO 6700 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2018-11-22 13:36:20.769  INFO 6700 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2018-11-22 13:36:20.816  INFO 6700 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 25ms. Found 0 repository interfaces.
+2018-11-22 13:36:22.612  INFO 6700 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2018-11-22 13:36:23.017  WARN 6700 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2018-11-22 13:36:23.979  INFO 6700 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Started NetecoApplicationTests in 4.803 seconds (JVM running for 7.016)
+2018-11-22 15:07:54.438  INFO 6700 --- [Thread-2] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2018-11-22 15:08:00.981  INFO 15476 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Starting NetecoApplicationTests on DESKTOP-Q8ABO4B with PID 15476 (started by Skyba in F:\Code\IDEA\NetEcoTest)
+2018-11-22 15:08:00.984  INFO 15476 --- [main] com.yzsj.neteco.NetecoApplicationTests   : No active profile set, falling back to default profiles: default
+2018-11-22 15:08:02.039  INFO 15476 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2018-11-22 15:08:02.045  INFO 15476 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2018-11-22 15:08:02.093  INFO 15476 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 25ms. Found 0 repository interfaces.
+2018-11-22 15:08:03.768  INFO 15476 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2018-11-22 15:08:04.022  WARN 15476 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2018-11-22 15:08:04.945  INFO 15476 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Started NetecoApplicationTests in 4.554 seconds (JVM running for 6.538)
+2018-11-22 15:55:50.535  INFO 15476 --- [Thread-2] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2018-11-22 15:55:57.186  INFO 29268 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Starting NetecoApplicationTests on DESKTOP-Q8ABO4B with PID 29268 (started by Skyba in F:\Code\IDEA\NetEcoTest)
+2018-11-22 15:55:57.188  INFO 29268 --- [main] com.yzsj.neteco.NetecoApplicationTests   : No active profile set, falling back to default profiles: default
+2018-11-22 15:55:58.255  INFO 29268 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2018-11-22 15:55:58.262  INFO 29268 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2018-11-22 15:55:58.317  INFO 29268 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 30ms. Found 0 repository interfaces.
+2018-11-22 15:56:00.334  INFO 29268 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2018-11-22 15:56:00.690  WARN 29268 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2018-11-22 15:56:01.734  INFO 29268 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Started NetecoApplicationTests in 5.13 seconds (JVM running for 7.765)
+2018-11-22 15:57:36.875  INFO 29268 --- [Thread-2] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2018-11-22 15:57:54.502  INFO 13180 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Starting NetecoApplicationTests on DESKTOP-Q8ABO4B with PID 13180 (started by Skyba in F:\Code\IDEA\NetEcoTest)
+2018-11-22 15:57:54.505  INFO 13180 --- [main] com.yzsj.neteco.NetecoApplicationTests   : No active profile set, falling back to default profiles: default
+2018-11-22 15:57:55.691  INFO 13180 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2018-11-22 15:57:55.699  INFO 13180 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2018-11-22 15:57:55.757  INFO 13180 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 31ms. Found 0 repository interfaces.
+2018-11-22 15:57:57.455  INFO 13180 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2018-11-22 15:57:57.887  WARN 13180 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2018-11-22 15:57:58.818  INFO 13180 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Started NetecoApplicationTests in 4.899 seconds (JVM running for 7.083)
+2018-11-22 15:58:49.326  INFO 13180 --- [Thread-2] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2018-11-22 15:58:59.600  INFO 29424 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Starting NetecoApplicationTests on DESKTOP-Q8ABO4B with PID 29424 (started by Skyba in F:\Code\IDEA\NetEcoTest)
+2018-11-22 15:58:59.602  INFO 29424 --- [main] com.yzsj.neteco.NetecoApplicationTests   : No active profile set, falling back to default profiles: default
+2018-11-22 15:59:00.820  INFO 29424 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode!
+2018-11-22 15:59:00.826  INFO 29424 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2018-11-22 15:59:00.875  INFO 29424 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 27ms. Found 0 repository interfaces.
+2018-11-22 15:59:02.759  INFO 29424 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2018-11-22 15:59:03.084  WARN 29424 --- [main] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates or check your Thymeleaf configuration)
+2018-11-22 15:59:04.041  INFO 29424 --- [main] com.yzsj.neteco.NetecoApplicationTests   : Started NetecoApplicationTests in 4.971 seconds (JVM running for 6.932)
+2018-11-22 15:59:23.742  INFO 29424 --- [Thread-2] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
