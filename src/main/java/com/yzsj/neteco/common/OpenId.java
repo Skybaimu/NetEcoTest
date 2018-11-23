@@ -11,6 +11,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,30 +23,25 @@ import java.util.Map;
  * @date 2018-11-21
  *
  * */
+@Component
 public class OpenId {
-    @Autowired
-    Config config;
-
-    @Autowired
-    InitHttpClient initHttpClient;
-
-    @Autowired
-    ParseResponse parseResponse;
+    @Autowired(required = false)
+    private ConfigUtil configUtil;
 
     /**
      * @param ip port openidURL
      * */
     public   String getOpenId( String ip , int port, String openidURL){
-
+//        ConfigUtil configUtil = new ConfigUtil();
         List<BasicNameValuePair> parameters = new ArrayList<BasicNameValuePair>();
-        parameters.add(new BasicNameValuePair("userid", config.getUserid()));
-        parameters.add(new BasicNameValuePair("value", config.getPassword()));
-        parameters.add(new BasicNameValuePair("ipaddress", config.getIpAddress()));
+        parameters.add(new BasicNameValuePair("userid", configUtil.getUserid()));
+        parameters.add(new BasicNameValuePair("value", configUtil.getPassword()));
+        parameters.add(new BasicNameValuePair("ipaddress", configUtil.getIpAddress()));
 
         Map<String ,String> retMap = null;
         HttpClient httpClient = new DefaultHttpClient();
         try {
-           httpClient = initHttpClient.createSSLClientDefault(port);
+           httpClient =new InitHttpClient().createSSLClientDefault(port);
 
             String url = "https://" + ip + ":" + port + openidURL;
             HttpPut httpPut = new HttpPut(url);
@@ -54,7 +50,7 @@ public class OpenId {
 
             HttpEntity entity = response.getEntity();
             if(entity != null){
-                retMap = parseResponse.getParseResponse(EntityUtils.toString(entity));
+                retMap = new ParseResponse().getParseResponse(EntityUtils.toString(entity));
             }
 
         } catch (IOException e) {

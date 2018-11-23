@@ -21,8 +21,8 @@ import java.util.Map;
  * */
 
 public class QueryHttpsResult {
-    @Autowired
-    InitHttpClient initHttpClient;
+//    @Autowired(required = false)
+//    InitHttpClient initHttpClient;
 
     /**
      * @param port
@@ -37,10 +37,8 @@ public class QueryHttpsResult {
     public String getHttpsResult(int port,String url,List<BasicNameValuePair> headers, List<BasicNameValuePair> parameters,String method){
 
         Map<String ,String> retMap = null;
-        HttpClient httpClient = new DefaultHttpClient();
+        HttpClient httpClient = new InitHttpClient().createSSLClientDefault(port);
         try {
-            httpClient = initHttpClient.createSSLClientDefault(port);
-
             if (null != parameters) {
                 url += "?";
                 boolean init = false;
@@ -54,7 +52,7 @@ public class QueryHttpsResult {
                 }
             }
             HttpResponse response= null;
-            if("get"==method) {
+            if("get".equals(method)) {
                 HttpGet httpGet = new HttpGet(url);
                 if (null != headers) {
                     for (BasicNameValuePair header : headers) {
@@ -62,7 +60,7 @@ public class QueryHttpsResult {
                     }
                 }
                  response = httpClient.execute(httpGet);
-            }else if("put"==method) {
+            }else if("put".equals(method)) {
                 HttpPut httpPut = new HttpPut(url);
                 if (null != parameters) {
                     httpPut.setEntity(new UrlEncodedFormEntity(parameters, "UTF-8"));

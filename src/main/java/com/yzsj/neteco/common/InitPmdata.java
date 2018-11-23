@@ -3,6 +3,7 @@ package com.yzsj.neteco.common;
 import com.alibaba.fastjson.JSONArray;
 import com.yzsj.neteco.util.InitHttpClient;
 import com.yzsj.neteco.util.ParseResponse;
+import com.yzsj.neteco.util.QueryHttpsResult;
 import com.yzsj.neteco.util.RedisManager;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -13,12 +14,11 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -32,15 +32,9 @@ import java.util.Map;
 public class InitPmdata {
 
     @Autowired(required = false)
-    Config config;
+    private ConfigUtil configUtil;
     @Autowired(required = false)
-    RedisManager redisManager;
-    @Autowired(required = false)
-    InitHttpClient initHttpClient;
-    @Autowired(required = false)
-    ParseResponse parseResponse;
-    @Autowired(required = false)
-    OpenId openIdObj;
+    private RedisManager redisManager;
 
     private String openId = "";
     private HttpClient httpClient;
@@ -51,16 +45,16 @@ public class InitPmdata {
     /**
      * 启动时自动初始化一个openId和httpClient
      */
-//    @PostConstruct
+    @PostConstruct
     public void initOpenIdAndHttpClient() {
-        openId = openIdObj.getOpenId(config.getIp(), config.getPort(), config.getUrl());
-        httpClient = initHttpClient.createSSLClientDefault(config.getPort());
-        url = "https://" + config.getIp() + ":" + config.getPort() + config.getUrl();
-        List<BasicNameValuePair> parameters = new ArrayList<BasicNameValuePair>();
-        parameters.add(new BasicNameValuePair("userid", config.getUserid()));
-        parameters.add(new BasicNameValuePair("value", config.getPassword()));
-        parameters.add(new BasicNameValuePair("ipaddress", config.getIpAddress()));
-        try {
+        httpClient =new InitHttpClient().createSSLClientDefault(configUtil.getPort());
+//        openId = getOpenId(configUtil.getIp(), configUtil.getPort(), "/rest/openapi/sm/session");
+        openId = "7080fab6a6d4f9f05e366b9462c5fe7c477bb3a81aef708e";
+        url = "https://" + configUtil.getIp() + ":" + configUtil.getPort() ;
+        parameters.add(new BasicNameValuePair("userid", configUtil.getUserid()));
+        parameters.add(new BasicNameValuePair("value", configUtil.getPassword()));
+        parameters.add(new BasicNameValuePair("ipaddress", configUtil.getIpAddress()));
+        /*try {
             if (null != parameters) {
                 url += "?";
                 boolean init = false;
@@ -75,11 +69,15 @@ public class InitPmdata {
             }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-        }
-        List<BasicNameValuePair> headers = new ArrayList<BasicNameValuePair>();
+        }*/
+//        List<BasicNameValuePair> headers = new ArrayList<BasicNameValuePair>();
         headers.add(new BasicNameValuePair("openid", openId));
         headers.add(new BasicNameValuePair("pageSize", "4000"));
-
+        Map<String, String> retMap = getPmdata();
+        Map<String, String> retMap1 = getPmdata();
+//        queryHttpsTest();
+        System.out.println(retMap);
+        System.out.println(retMap1);
     }
 
 
@@ -94,7 +92,7 @@ public class InitPmdata {
     }
 
     public Map<String, String> getPmdata() {
-        HttpGet httpGet = new HttpGet(url);
+        HttpGet httpGet = new HttpGet(url+configUtil.getUrl());
         if (null != headers) {
             for (BasicNameValuePair header : headers) {
                 httpGet.setHeader(header.getName(), header.getValue());
@@ -108,8 +106,9 @@ public class InitPmdata {
             if (null == ret || ret.isEmpty()) {
                 return null;
             }
-            retMap = parseResponse.getParseResponse(ret);
-            if (retMap.get("code").equals("0")) {
+            retMap =new ParseResponse().getParseResponse(ret);
+            return retMap;
+            /*if (retMap.get("code").equals("0")) {
                 //调用方法将结果集转化为推送数据
                 String result =  retMap.get("data");
 //                Map<String, String> map = transMap(result);
@@ -124,13 +123,64 @@ public class InitPmdata {
 
             } else {
                 System.out.println("error!!! " + retMap.toString());
-            }
+            }*/
         } catch (IOException e) {
             e.printStackTrace();
         }
         return  null;
     }
 
+
+    public   String getOpenId( String ip , int port, String openidURL){
+//        ConfigUtil configUtil = new ConfigUtil();
+        List<BasicNameValuePair> parameters = new ArrayList<BasicNameValuePair>();
+        parameters.add(new BasicNameValuePair("userid", configUtil.getUserid()));
+        parameters.add(new BasicNameValuePair("value", configUtil.getPassword()));
+        parameters.add(new BasicNameValuePair("ipaddress", configUtil.getIpAddress()));
+
+        Map<String ,String> retMap = null;
+        try {
+
+            String url = "https://" + ip + ":" + port + openidURL;
+            HttpPut httpPut = new HttpPut(url);
+            httpPut.setEntity(new UrlEncodedFormEntity(parameters,"UTF-8"));
+            HttpResponse response = httpClient.execute(httpPut);
+
+            HttpEntity entity = response.getEntity();
+            if(entity != null){
+                retMap = new ParseResponse().getParseResponse(EntityUtils.toString(entity));
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            httpClient.getConnectionManager().shutdown();
+        }
+        if (retMap.get("code").equals("0"))
+        {
+            return retMap.get("data");
+        }
+        return "";
+    }
+
+
+
+    public void  queryHttpsTest(){
+
+        String alarmData =  new QueryHttpsResult().
+                getHttpsResult(configUtil.getPort(),url + "/rest/openapi/neteco/instancenode",headers,parameters,"get");
+        Map<String ,String > retMap =new ParseResponse().getParseResponse(alarmData);
+        List<Map<String,Object>> data= (List<Map<String,Object>>) JSONArray.parse(retMap.get("data"));
+        String neId = "41000";
+        HashMap<String, Map<String, Object>> stringMapHashMap = new HashMap<>();
+        for(Map<String,Object> d : data){
+            stringMapHashMap.put(String.valueOf(d.get("neTypeID")),d);
+        }
+        Map<String, Object> stringObjectMap = stringMapHashMap.get(neId);
+        String instanceData = new QueryHttpsResult().
+                getHttpsResult(configUtil.getPort(),url + "/rest/openapi/neteco/instancenode",headers,parameters,"get");
+        System.out.println("--------------------" + instanceData);
+    }
 
 
 

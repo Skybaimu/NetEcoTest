@@ -3,12 +3,11 @@ package com.yzsj.neteco;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.yzsj.neteco.common.Config;
-import com.yzsj.neteco.common.OpenId;
-import com.yzsj.neteco.common.alarm.AlarmManager;
+import com.yzsj.neteco.common.ConfigUtil;
 import com.yzsj.neteco.util.InitHttpClient;
 import com.yzsj.neteco.util.POIUtil;
 import com.yzsj.neteco.util.ParseResponse;
+import com.yzsj.neteco.util.QueryHttpsResult;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -31,7 +30,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.json.JsonbTester;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.net.ssl.*;
@@ -50,25 +48,26 @@ import java.util.*;
 @SpringBootTest
 public class NetecoApplicationTests {
     @Autowired(required=false)
-    Config config;
+   private ConfigUtil configUtil;
 
     @Autowired(required = false)
     ParseResponse parseResponse;
 
 
+
     String openId="";
     @Test
     public void contextLoads() {
-        String url = config.getUrl();
+        String url = configUtil.getUrl();
 
 //        String url1 = "https://tcc.taobao.com/cc/json/mobile_tel_segment.htm?tel=18314444444";
-        int port = config.getPort();
-        String ip =config.getIp();
+        int port = configUtil.getPort();
+        String ip = configUtil.getIp();
 
         List<BasicNameValuePair> parameters = new ArrayList<BasicNameValuePair>();
-        parameters.add(new BasicNameValuePair("userid", config.getUserid()));
-        parameters.add(new BasicNameValuePair("value", config.getPassword()));
-        parameters.add(new BasicNameValuePair("ipaddress", config.getIpAddress()));
+        parameters.add(new BasicNameValuePair("userid", configUtil.getUserid()));
+        parameters.add(new BasicNameValuePair("value", configUtil.getPassword()));
+        parameters.add(new BasicNameValuePair("ipaddress", configUtil.getIpAddress()));
         Map<String, String> params = new HashMap<>();
         if(openId ==""){
 //            OpenId opId = new OpenId();
@@ -143,9 +142,9 @@ public String getOpenId1(String ip ,int port,String url1){
     String openidURL = "/rest/openapi/sm/session";
 //set parameters
     List<BasicNameValuePair> parameters = new ArrayList<BasicNameValuePair>();
-    parameters.add(new BasicNameValuePair("userid", config.getUserid()));
-    parameters.add(new BasicNameValuePair("value", config.getPassword()));
-    parameters.add(new BasicNameValuePair("ipaddress", config.getIpAddress()));
+    parameters.add(new BasicNameValuePair("userid", configUtil.getUserid()));
+    parameters.add(new BasicNameValuePair("value", configUtil.getPassword()));
+    parameters.add(new BasicNameValuePair("ipaddress", configUtil.getIpAddress()));
 //create a connection manager
     X509TrustManager tm = new X509TrustManager()
     {
@@ -497,6 +496,7 @@ public String getOpenId1(String ip ,int port,String url1){
 
     @Test
     public  void fileTest() throws IOException {
+
         POIUtil poiUtil = new POIUtil();
         String realPath = POIUtil.class.getClassLoader().getResource("").getPath();
         String path = "F:\\baimu\\工作文件\\华为微模块测试\\TestData-lyj\\TestData-lyj\\excelTest.xlsx";
@@ -515,6 +515,8 @@ public String getOpenId1(String ip ,int port,String url1){
 //        System.out.println(list);
 
     }
+
+
 
 
 }

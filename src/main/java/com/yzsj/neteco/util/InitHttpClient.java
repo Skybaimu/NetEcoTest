@@ -47,9 +47,9 @@ public class InitHttpClient {
 
             HttpClient httpClient = new DefaultHttpClient(new BasicClientConnectionManager(schemeRegistry));
             //设置数据连接超时时间
-            httpClient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT,2000);
+            httpClient.getParams().setParameter(CoreConnectionPNames.CONNECTION_TIMEOUT,10000);
             //设置数据传输超时时间
-            httpClient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT,3000);
+            httpClient.getParams().setParameter(CoreConnectionPNames.SO_TIMEOUT,10000);
             return httpClient;
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();

@@ -1,6 +1,6 @@
 package com.yzsj.neteco.common.alarm;
 
-import com.yzsj.neteco.common.Config;
+import com.yzsj.neteco.common.ConfigUtil;
 import com.yzsj.neteco.util.InitHttpClient;
 import com.yzsj.neteco.util.ParseResponse;
 import org.apache.http.HttpEntity;
@@ -9,7 +9,6 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.util.EntityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -20,14 +19,14 @@ import java.util.List;
 import java.util.Map;
 
 public class AlarmManager {
-    @Autowired
-    Config config;
+//    @Autowired(required = false)
+//    private ConfigUtil configUtil;
 
-    @Autowired
-    InitHttpClient initHttpClient;
+    @Autowired(required = false)
+    private InitHttpClient initHttpClient;
 
-    @Autowired
-    ParseResponse parseResponse;
+    @Autowired(required = false)
+    private ParseResponse parseResponse;
 
     public String getAlarm(String openid, List<BasicNameValuePair> parameters,String ip,int port, String alarmURL){
         List<BasicNameValuePair> headers = new ArrayList<BasicNameValuePair>();
