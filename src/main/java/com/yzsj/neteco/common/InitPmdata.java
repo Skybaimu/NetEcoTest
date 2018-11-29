@@ -82,7 +82,7 @@ public class InitPmdata {
 //        System.out.println(retMap);
 //        System.out.println(retMap1);
 
-        getKpiForObject();
+//        getKpiForObject();
         System.out.println("1");
     }
 

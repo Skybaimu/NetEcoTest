@@ -31,6 +31,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.web.client.RestTemplate;
 
 import javax.net.ssl.*;
 import java.io.File;
@@ -516,6 +517,24 @@ public String getOpenId1(String ip ,int port,String url1){
 
     }
 
+
+    //测试influxDB
+    @Test
+    public void write(){
+        String url="http://192.168.1.55:8086/write?db=test";
+
+        String pointValue="kpi1,TAG012=2143,TAG000";
+        String time = " 1434059023012571250";
+
+        RestTemplate restTemplate=new RestTemplate();
+        for(int i = 50 ;i < 100 ; i ++){
+            String data = pointValue+i +"=13 TAG0011"+ i + "=" + i + time;
+            restTemplate.postForObject(url,data,Object.class);
+        }
+
+
+        System.out.println("-----");
+    }
 
 
 
