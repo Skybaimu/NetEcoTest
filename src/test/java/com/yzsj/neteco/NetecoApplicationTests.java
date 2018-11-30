@@ -523,12 +523,12 @@ public String getOpenId1(String ip ,int port,String url1){
     public void write(){
         String url="http://192.168.1.55:8086/write?db=test";
 
-        String pointValue="kpi1,TAG012=2143,TAG000";
-        String time = " 1434059023012571250";
+        String pointValue="kpi2 TAG012=2143,TAG001";
+        String time = " 1434059023012571211";
 
         RestTemplate restTemplate=new RestTemplate();
-        for(int i = 50 ;i < 100 ; i ++){
-            String data = pointValue+i +"=13 TAG0011"+ i + "=" + i + time;
+        for(int i = 1 ;i < 20 ; i ++){
+            String data = pointValue+i +"=13,TAG0031"+ i + "=" + i +",TAG9"+ i +"=13"+ i  +",TAG77"+ i +"=199"+ i + time;
             restTemplate.postForObject(url,data,Object.class);
         }
 

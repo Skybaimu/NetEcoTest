@@ -50,37 +50,16 @@ public class InitPmdata {
     @PostConstruct
     public void initOpenIdAndHttpClient() {
         httpClient =new InitHttpClient().createSSLClientDefault(configUtil.getPort());
-//        openId = getOpenId(configUtil.getIp(), configUtil.getPort(), "/rest/openapi/sm/session");
-        openId = "dc4d930dadaf9ff4cea992e2bf3ce5fd1d5c70afe5bc4c8b";
+        if(openId.equals("")){
+            openId = getOpenId(configUtil.getIp(), configUtil.getPort(), "/rest/openapi/sm/session");
+        }
         url = "https://" + configUtil.getIp() + ":" + configUtil.getPort() ;
-        parameters.add(new BasicNameValuePair("userid", configUtil.getUserid()));
+       /* parameters.add(new BasicNameValuePair("userid", configUtil.getUserid()));
         parameters.add(new BasicNameValuePair("value", configUtil.getPassword()));
-        parameters.add(new BasicNameValuePair("ipaddress", configUtil.getIpAddress()));
-
-        /*try {
-            if (null != parameters) {
-                url += "?";
-                boolean init = false;
-                for (BasicNameValuePair e : parameters) {
-                    if (!init) {
-                        url += URLEncoder.encode(e.getName(), "UTF-8") + "=" + URLEncoder.encode(e.getValue(), "UTF-8");
-                        init = true;
-                    } else {
-                        url += "&" + URLEncoder.encode(e.getName(), "UTF-8") + "=" + URLEncoder.encode(e.getValue(), "UTF-8");
-                    }
-                }
-            }
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }*/
-//        List<BasicNameValuePair> headers = new ArrayList<BasicNameValuePair>();
+        parameters.add(new BasicNameValuePair("ipaddress", configUtil.getIpAddress()));*/
         headers.add(new BasicNameValuePair("openid", openId));
 //        headers.add(new BasicNameValuePair("pageSize", "3000"));
 //        Map<String, String> retMap = getPmdata();
-//        Map<String, String> retMap1 = getPmdata();
-//        queryHttpsTest();
-//        System.out.println(retMap);
-//        System.out.println(retMap1);
 
 //        getKpiForObject();
         System.out.println("1");
@@ -98,6 +77,23 @@ public class InitPmdata {
     }
 
     public Map<String, String> getPmdata() {
+
+        List<BasicNameValuePair> KPIHeaders = headers;
+        KPIHeaders.add(new BasicNameValuePair("params", "{\"pageIndex\":" + 1 + ",\"pageSize\":" + 4000 + "}"));
+        String KPIData =  new QueryHttpsResult().
+                getHttpsResult(configUtil.getPort(),url + "/rest/openapi/neteco/pmdata",KPIHeaders,null,"get");
+        List<Map<String,Object>> kpiListAll = new ArrayList<>() ;
+        int totalPage = (int)((Map<String,Object>) JSON.parse(KPIData)).get("totalPage");
+
+        for (int i = 1;i <= totalPage;i++){
+            headers.add(new BasicNameValuePair("params", "{\"pageIndex\":" + i + ",\"pageSize\":" + 4000 + "}"));
+            KPIData =  new QueryHttpsResult().
+                    getHttpsResult(configUtil.getPort(),url + "/rest/openapi/neteco/pmdata",headers,null,"get");
+            Map<String,String> KpiDataMap = new ParseResponse().getParseResponse(KPIData);
+            kpiListAll.addAll ((List<Map<String,Object>>)JSONArray.parse(KpiDataMap.get("data")));
+
+        }
+
         HttpGet httpGet = new HttpGet(url+configUtil.getUrl());
         if (null != headers) {
             for (BasicNameValuePair header : headers) {
@@ -136,9 +132,14 @@ public class InitPmdata {
         return  null;
     }
 
-
+/**
+ * 根据ip 端口 url获取openId;
+ * @param ip
+ * @param port
+ * @parm openidURL
+ * @return
+ * */
     public   String getOpenId( String ip , int port, String openidURL){
-//        ConfigUtil configUtil = new ConfigUtil();
         List<BasicNameValuePair> parameters = new ArrayList<BasicNameValuePair>();
         parameters.add(new BasicNameValuePair("userid", configUtil.getUserid()));
         parameters.add(new BasicNameValuePair("value", configUtil.getPassword()));
@@ -208,7 +209,6 @@ public class InitPmdata {
             instanceData =  new QueryHttpsResult().
                     getHttpsResult(configUtil.getPort(),url + "/rest/openapi/neteco/instancenode",instanHeaders1,null,"get");
             Map<String,String> instDataMap = new ParseResponse().getParseResponse(instanceData);
-            List<Map<String,Object>> aaa =  (List<Map<String,Object>>)JSONArray.parse(instDataMap.get("data"));
             instListAll.addAll ((List<Map<String,Object>>)JSONArray.parse(instDataMap.get("data")));
         }
         Map<String ,Map<String ,Object>> instanceDataMap = new HashMap<>();
@@ -244,12 +244,11 @@ public class InitPmdata {
 
         //获取指标数据
         List<BasicNameValuePair> KPIHeaders = headers;
-        KPIHeaders.add(new BasicNameValuePair("params", "{\"pageIndex\":" + 0 + ",\"pageSize\":" + 4000 + "}"));
+        KPIHeaders.add(new BasicNameValuePair("params", "{\"pageIndex\":" + 1 + ",\"pageSize\":" + 4000 + "}"));
         String KPIData =  new QueryHttpsResult().
                 getHttpsResult(configUtil.getPort(),url + "/rest/openapi/neteco/pmdata",KPIHeaders,null,"get");
         List<Map<String,Object>> kpiListAll = new ArrayList<>() ;
         int totalPage = (int)((Map<String,Object>) JSON.parse(KPIData)).get("totalPage");
-        int pageSize = (int)((Map<String,Object>) JSON.parse(KPIData)).get("pageSize");
 
         for (int i = 1;i <= totalPage;i++){
             headers.add(new BasicNameValuePair("params", "{\"pageIndex\":" + i + ",\"pageSize\":" + 4000 + "}"));
@@ -261,12 +260,11 @@ public class InitPmdata {
         }
 
         //遍历指标数据，创建最终map集合
-        File file = new File("d:/a.txt");
+        File file = new File("d:/资产指标数据.txt");
         String result = "";
         HashMap<String, Map<String, Object>> resultHashMap = new HashMap<>();
         for (Map<String,Object> map: kpiListAll) {
-//                System.out.println(map.get("dn") +"@  " +/*(instanceDataMap.get(map.get((instanceDataMap.get(map.get("dn"))).get("parentId")))).get("name")*/(instanceDataMap.get(map.get("dn"))).get("parentName")+ (instanceDataMap.get(map.get("dn"))).get("name")+"@  " + map.get("counterId")+ "@  " + (pmcounteDataMap.get( map.get("counterId"))).get("name")  );
-                result += map.get("dn") +" " +/*(instanceDataMap.get(map.get((instanceDataMap.get(map.get("dn"))).get("parentId")))).get("name")*/(instanceDataMap.get(map.get("dn"))).get("parentName")+ (instanceDataMap.get(map.get("dn"))).get("name")+"  " + map.get("counterId")+ "  " + (pmcounteDataMap.get( map.get("counterId"))).get("name") +"/r/n"+"\r\n";
+                result += map.get("dn") +" " +/*(instanceDataMap.get(map.get((instanceDataMap.get(map.get("dn"))).get("parentId")))).get("name")*/(instanceDataMap.get(map.get("dn"))).get("parentName")+ (instanceDataMap.get(map.get("dn"))).get("name")+"  " + map.get("counterId")+ "  " + (pmcounteDataMap.get( map.get("counterId"))).get("name") +"\r\n";
 
         }
         try {
