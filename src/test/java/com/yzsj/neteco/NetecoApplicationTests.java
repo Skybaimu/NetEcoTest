@@ -500,7 +500,7 @@ public String getOpenId1(String ip ,int port,String url1){
 
         POIUtil poiUtil = new POIUtil();
         String realPath = POIUtil.class.getClassLoader().getResource("").getPath();
-        String path = "F:\\baimu\\工作文件\\华为微模块测试\\TestData-lyj\\TestData-lyj\\excelTest.xlsx";
+        String path = "D:\\excelTest.xlsx";
         List<String[] > list = POIUtil.readExcel(path);
         String path1 = new File("").getAbsolutePath();
 

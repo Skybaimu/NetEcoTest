@@ -53,7 +53,10 @@ public class InitPmdata {
         if(openId.equals("")){
             openId = getOpenId(configUtil.getIp(), configUtil.getPort(), "/rest/openapi/sm/session");
         }
+//        openId="959ce35a370478bff93edce6ccabd020a550f412d6f8abc6";
+
         url = "https://" + configUtil.getIp() + ":" + configUtil.getPort() ;
+//        String res = new QueryHttpsResult().getHttpsResult()
        /* parameters.add(new BasicNameValuePair("userid", configUtil.getUserid()));
         parameters.add(new BasicNameValuePair("value", configUtil.getPassword()));
         parameters.add(new BasicNameValuePair("ipaddress", configUtil.getIpAddress()));*/
@@ -61,7 +64,7 @@ public class InitPmdata {
 //        headers.add(new BasicNameValuePair("pageSize", "3000"));
 //        Map<String, String> retMap = getPmdata();
 
-//        getKpiForObject();
+        getKpiForObject();
         System.out.println("1");
     }
 
@@ -260,11 +263,11 @@ public class InitPmdata {
         }
 
         //遍历指标数据，创建最终map集合
-        File file = new File("d:/资产指标数据.txt");
+        File file = new File("d:/资产指标数据1.txt");
         String result = "";
         HashMap<String, Map<String, Object>> resultHashMap = new HashMap<>();
         for (Map<String,Object> map: kpiListAll) {
-                result += map.get("dn") +" " +/*(instanceDataMap.get(map.get((instanceDataMap.get(map.get("dn"))).get("parentId")))).get("name")*/(instanceDataMap.get(map.get("dn"))).get("parentName")+ (instanceDataMap.get(map.get("dn"))).get("name")+"  " + map.get("counterId")+ "  " + (pmcounteDataMap.get( map.get("counterId"))).get("name") +"\r\n";
+                result += map.get("dn") +"@" +map.get("mocID") +"@" +map.get("devTypeId") +"@"+map.get("insID") +"@"+ map.get("versionID") +"@"  +(pmcounteDataMap.get( map.get("counterId"))).get("functionSubsetId") +"@"   +(instanceDataMap.get(map.get("dn"))).get("parentName")+ (instanceDataMap.get(map.get("dn"))).get("name")+"@" + map.get("counterId")+ "@" + (pmcounteDataMap.get( map.get("counterId"))).get("name")+"@"+map.get("counterValue")  +"\r\n";
 
         }
         try {
@@ -274,6 +277,8 @@ public class InitPmdata {
         }
 
     }
+
+
 
 
 }
