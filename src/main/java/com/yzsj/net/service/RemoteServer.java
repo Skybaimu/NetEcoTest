@@ -1,6 +1,7 @@
 package com.yzsj.net.service;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +17,9 @@ import org.apache.http.Header;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -35,6 +39,9 @@ import org.springframework.web.client.RestTemplate;
 public class RemoteServer {
 	public Header openHeader = null;
 	public  Map<String, String> INFO = new HashMap<>();
+	public  Map<String, String> pmMap = new HashMap<String, String>();
+	private static Logger log = LoggerFactory.getLogger(RedisManager.class);
+
 /*
 	@Autowired
 	public WMK config;
@@ -45,20 +52,16 @@ public class RemoteServer {
 	@Autowired
 	private RedisManager redisManager;
 
-//	@PostConstruct
+	@PostConstruct
 	public void loadTag() {
 		try {
-			String path = "D:\\excelTest.xlsx";
+			String path = "D:\\TAGId1.xlsx";
 			List<String[]> list = POIUtil.readExcel(path);
-			String path1 = new File("").getAbsolutePath();
-
-			System.out.println(path1);
-			Map<String ,String> map = new HashMap<>();
 			for (String[] strings: list) {
-				INFO.put(strings[0],strings[1]);
+				INFO.put(strings[1],strings[2]);
 			}
-
 		} catch (Exception e) {
+			log.error("读取excel表错误： " +e.getMessage(),e);
 		}
 	}
 
@@ -75,38 +78,27 @@ public class RemoteServer {
 			data.add(new BasicNameValuePair("userid", config.getUserid()));
 			data.add(new BasicNameValuePair("value", config.getPassword()));
 			data.add(new BasicNameValuePair("ipaddress", config.getIpAddress()));
-//			String result = HttpClientUtils.put(url, data);
-//			String result = new OpenId().getOpenId(url,config.getPort(),data);
-			/*JSONObject obj = toJson(result);
+			String result = HttpClientUtils.put(url, data);
+			JSONObject obj = toJson(result);
 			if (result != null) {
 				if ("0".equals(obj.getString("code"))) {
 					openHeader = new BasicHeader("openid", obj.getString("data"));
 				}
-
-			}*/
-			openHeader = new BasicHeader("openid", "f7951fcae422849948e7d9f3ff0c38465c9359ccbcb518b7");
+			}
+//			openHeader = new BasicHeader("openid", "28d52c6b2deaeb7d9d17fab23a5dc32299e3bc961b791bf7");
+//			test();
 		} catch (Exception e) {
+			log.error("获取openId错误：" + e.getMessage(),e);
 			e.printStackTrace();
 		}
 	}
 
-	@Scheduled(initialDelay = 10000, fixedDelay = 5000)
+	@Scheduled(initialDelay = 5000, fixedDelay = 5000)
 	public void publishData() {
 		if (openHeader == null) {
 			setOpenId();
 		}
 		Map<String, String> retMap = getPmdata();
-		String url="http://127.0.0.1:8086/write?db=uchdlog";
-
-		String pointValue="kpi TAG012=2143,TAG001";
-		String time = " 1434059023012571211";
-
-		RestTemplate restTemplate=new RestTemplate();
-		for(int i = 1 ;i < 20 ; i ++){
-			String data = pointValue+i +"=13,TAG0031"+ i + "=" + i +",TAG9"+ i +"=13"+ i  +",TAG77"+ i +"=199"+ i + time;
-			restTemplate.postForObject(url,data,Object.class);
-		}
-		String influxData = "";
 		for (Map.Entry<String, String> entry : retMap.entrySet()) {
 			String publishValue = "{\"id\":" + entry.getKey() + ",\"f\":0,\"p\":2,\"t\":0,\"v\":" + entry.getValue()+ "}";
 			redisManager.publish("chan:from_all_to_uckernal:value", publishValue);
@@ -121,22 +113,17 @@ public class RemoteServer {
 		Map<String, String> map = new HashMap<String, String>();
 		try {
 			for (int i = 0; true; i++) {
-				/*List<BasicNameValuePair> headers = new ArrayList<BasicNameValuePair>();
-				headers.add(new BasicNameValuePair("openid", "b800b1fd46671cd7370a64baa58434437e0566205db37351"));
-				headers.add(new BasicNameValuePair("params", "{\"pageIndex\":" + 1 + ",\"pageSize\":" + 4000 + "}"));*/
 				List<Header> headers = new ArrayList<Header>();
 				headers.add(openHeader);
 				headers.add(new BasicHeader("params", "{\"pageIndex\":" + i + ",\"pageSize\":" + 4000 + "}"));
 				String url = "https://" + config.getIp() + ":" + config.getPort() + "/rest/openapi/neteco/pmdata";
 				String result = HttpClientUtils.get(url, null, headers);
-				/*String KPIData =  new QueryHttpsResult().
-						getHttpsResult(config.getPort(),url + "/rest/openapi/neteco/pmdata",headers,null,"get");*/
-
-				JSONArray jsonArray = toJson(result).getJSONArray("data");
+				JSONObject resultObj = toJson(result);
+				if(resultObj.get("code").equals("1204"))setOpenId();
+				JSONArray jsonArray = resultObj.getJSONArray("data");
 				for (int j = 0; j < jsonArray.size(); j++) {
 					JSONObject obj = (JSONObject) jsonArray.get(j);
-					////// 未完成
-					map.put(obj.getString("dn") + obj.getString("counterId"),obj.getString("counterValue"));
+					map.put(INFO.get(obj.getString("dn")+obj.getString("counterId")),obj.getString("counterValue"));
 				}
 				if (StringUtils.isBlank(result)) {
 					break;
@@ -153,5 +140,46 @@ public class RemoteServer {
 			return null;
 		}
 		return JSON.parseObject(data);
+	}
+
+	@Test
+	public  void test(){
+		if (openHeader == null) {
+			setOpenId();
+		}
+		Map<String, String> map = new HashMap<String, String>();
+		File file = new File("d:/实时指标1.txt");
+		String finalData = "";
+		try {
+
+			for (int i = 0; true; i++) {
+				List<Header> headers = new ArrayList<Header>();
+				headers.add(openHeader);
+				headers.add(new BasicHeader("params", "{\"pageIndex\":" + i + ",\"pageSize\":" + 4000 + "}"));
+				String url = "https://" + config.getIp() + ":" + config.getPort() + "/rest/openapi/neteco/pmdata";
+				String result = HttpClientUtils.get(url, null, headers);
+				JSONArray jsonArray = toJson(result).getJSONArray("data");
+				for (int j = 0; j < jsonArray.size(); j++) {
+					JSONObject obj = (JSONObject) jsonArray.get(j);
+					////// 未完成
+					finalData += obj.getString("dn") + "@" + obj.getString("counterId") + "@" +
+									obj.getString("counterValue") + "@" +obj.getString("counterUnit") +
+										"@" +obj.getString("functionSubsetId") + "@" +obj.getString("resultTime") + "@" +
+												obj.getString("period")  +"\r\n";
+//					map.put(obj.getString("id") , obj.getString("groupName") );
+				}
+				if (StringUtils.isBlank(result)) {
+					break;
+				}
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			org.apache.commons.io.FileUtils.writeStringToFile(file,finalData );
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
