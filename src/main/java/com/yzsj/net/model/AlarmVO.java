@@ -122,6 +122,10 @@ public class AlarmVO {
 	 */
 	private String alarmGroupId;
 
+	public  AlarmVO(){
+		super();
+	}
+
 	public AlarmVO(String alarmSN, String alarmName, Long startTime, Long endTime, String alarmSource, String location,
 			Integer ackTime, String ackUser, Boolean acked, String additionalInformation, String additionalText,
 			Integer alarmId, String arrivedTime, String clearUser, Boolean cleared, Long clearedTime,

@@ -52,7 +52,7 @@ public class RemoteServer {
 	@Autowired
 	private RedisManager redisManager;
 
-	@PostConstruct
+//	@PostConstruct
 	public void loadTag() {
 		try {
 			String path = "D:\\TAGId1.xlsx";
@@ -70,7 +70,7 @@ public class RemoteServer {
 	 * 
 	 * @return
 	 */
-	@PostConstruct
+//	@PostConstruct
 	public void setOpenId() {
 		String url = "https://" + config.getIp() + ":" + config.getPort() + "/rest/openapi/sm/session";
 		try {
@@ -93,23 +93,36 @@ public class RemoteServer {
 		}
 	}
 
-	@Scheduled(initialDelay = 5000, fixedDelay = 5000)
+
+	/**
+	 * 定时任务按时间获取数据并推送
+	 * */
+	@Scheduled(initialDelay = 5000, fixedDelay = 120000)
 	public void publishData() {
-		if (openHeader == null) {
+
+		int a1 = (int)(Math.random() * 1078456456);
+		int a2 = (int)(Math.random() * 1132155654);
+		String publishValue = "[{\"ackTime\": null,\"ackUser\": null,\"acked\": false,\"additionalInformation\": null,\"additionalText\": null,\"alarmId\": 412348043,\"alarmName\": \"异常 (2QF1)\",\"alarmSN\": " + a1 + ",\"arrivedTime\": 1541396062345,\"clearUser\": null,\"cleared\": false,\"clearedTime\": null,\"clearedType\": 1,\"commentTime\": 0,\"commentUser\": \"\",\"comments\": \"\",\"devCsn\": 281,\"eventTime\": 1541396062000,\"eventType\": 4,\"latestLogTime\": 1541396062000,\"moDN\": \"NE=33554456.41234-28162\",\"moName\": \"配电柜_PDU8000_01044_BIN4[01]\",\"neDN\": \"NE=33554456.41234-28162\",\"neName\": \"配电柜_PDU8000_01044_BIN4[01]\",\"neType\": \"{PDU}HUAWEI_PDU8000_Bin\",\"objectInstance\": \"/北京市城市副中心/二楼机房/二楼机房模块1,管理域名称=二楼机房模块1，ECC IP=10.200.2.204，设备名称=配电柜_PDU8000_01044_BIN4[01]\",\"perceivedSeverity\": 4,\"probableCause\": null,\"proposedRepairActions\": null,\"probableCauseStr\": \"\",\"alarmGroupId\": 4123}, {\"ackTime\": null,\"ackUser\": null,\"acked\": false,\"additionalInformation\": null,\"additionalText\": null,\"alarmId\": 410097013,\"alarmName\": \"回风低温告警\",\"alarmSN\": "+ a2 + ",\"arrivedTime\": 1541401923636,\"clearUser\": null,\"cleared\": true,\"clearedTime\": 1541660205000,\"clearedType\": 1,\"commentTime\": 0,\"commentUser\": \"\",\"comments\": \"\",\"devCsn\": 282,\"eventTime\": 1541401923000,\"eventType\": 4,\"latestLogTime\": 1541401923000,\"moDN\": \"NE=33554456.41009-23556\",\"moName\": \"空调_NetCol5000-A025_01044_BIN4[03]\",\"neDN\": \"NE=33554456.41009-23556\",\"neName\": \"空调_NetCol5000-A025_01044_BIN4[03]\",\"neType\": \"{CARC}HUAWEI_NetCol5000-A025_Bin\",\"objectInstance\": \"/北京市城市副中心/二楼机房/二楼机房模块1,管理域名称=二楼机房模块1，ECC IP=10.200.2.204，设备名称=空调_NetCol5000-A025_01044_BIN4[03]\",\"perceivedSeverity\": 4,\"probableCause\": null,\"proposedRepairActions\": null,\"probableCauseStr\": \"\",\"alarmGroupId\": 41009}]";
+		redisManager.publish("chan:mic_module_alarm", publishValue);
+		/*if (openHeader == null) {
 			setOpenId();
 		}
 		Map<String, String> retMap = getPmdata();
+		if(retMap.containsKey(null))retMap.remove(null);
 		for (Map.Entry<String, String> entry : retMap.entrySet()) {
 			String publishValue = "{\"id\":" + entry.getKey() + ",\"f\":0,\"p\":2,\"t\":0,\"v\":" + entry.getValue()+ "}";
 			redisManager.publish("chan:from_all_to_uckernal:value", publishValue);
 
-		}
+		}*/
 	}
-
+/**
+ * 获取实时指标数据
+ * */
 	public Map<String, String> getPmdata() {
 		if (openHeader == null) {
 			setOpenId();
 		}
+		if(INFO.isEmpty())loadTag();
 		Map<String, String> map = new HashMap<String, String>();
 		try {
 			for (int i = 0; true; i++) {
@@ -119,7 +132,10 @@ public class RemoteServer {
 				String url = "https://" + config.getIp() + ":" + config.getPort() + "/rest/openapi/neteco/pmdata";
 				String result = HttpClientUtils.get(url, null, headers);
 				JSONObject resultObj = toJson(result);
-				if(resultObj.get("code").equals("1204"))setOpenId();
+				if(resultObj.get("code").equals("1204")){
+					log.info("openId已失效");
+					setOpenId();
+				}
 				JSONArray jsonArray = resultObj.getJSONArray("data");
 				for (int j = 0; j < jsonArray.size(); j++) {
 					JSONObject obj = (JSONObject) jsonArray.get(j);
@@ -131,6 +147,7 @@ public class RemoteServer {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.error("获取实时指标数据异常或已完整获取数据" +e.getMessage(),e);
 		}
 		return map;
 	}
@@ -141,6 +158,8 @@ public class RemoteServer {
 		}
 		return JSON.parseObject(data);
 	}
+
+
 
 	@Test
 	public  void test(){

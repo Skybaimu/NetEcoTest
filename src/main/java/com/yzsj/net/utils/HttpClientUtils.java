@@ -111,14 +111,6 @@ public class HttpClientUtils {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			/*PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager();
-			cm.setMaxTotal(200);
-			cm.setDefaultMaxPerRoute(50);
-			cm.setValidateAfterInactivity(1000);
-			SocketConfig sc = SocketConfig.custom().setTcpNoDelay(true).setSoReuseAddress(true).setSoTimeout(50000).setSoLinger(1500).setSoKeepAlive(true).build();
-			RequestConfig rc = RequestConfig.custom().setConnectionRequestTimeout(30000).setConnectTimeout(30000).setSocketTimeout(30000).build();
-			INSTANCE = HttpClients.custom().setRetryHandler(rh).setConnectionManager(cm).setDefaultSocketConfig(sc).setDefaultRequestConfig(rc).setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36").build();
-		*/
 		}
 	}
 
@@ -139,9 +131,6 @@ public class HttpClientUtils {
 			return null;
 		}
 		T response = null;
-		/*HttpPut httpPut = new HttpPut(url);
-		httpPut.setEntity(new UrlEncodedFormEntity(data,"UTF-8"));
-		HttpResponse response = httpClient.execute(httpPut);*/
 		if ("POST".equalsIgnoreCase(type)) {
 			URIBuilder builder = new URIBuilder(url);
 			HttpPost httppost = new HttpPost(builder.build());

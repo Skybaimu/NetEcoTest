@@ -1,3 +1,4 @@
+/*
 package com.yzsj.neteco;
 
 import org.springframework.boot.SpringApplication;
@@ -30,3 +31,4 @@ public class NetecoApplication {
 
     }
 }
+*/

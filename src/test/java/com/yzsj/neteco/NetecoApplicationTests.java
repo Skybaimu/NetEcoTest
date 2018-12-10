@@ -1,3 +1,4 @@
+/*
 package com.yzsj.neteco;
 
 import com.alibaba.fastjson.JSON;
@@ -90,10 +91,12 @@ public class NetecoApplicationTests {
         String pwd = "";
         String openidURL = "/rest/openapi/sm/session";
 //set parameters
-       /* List<BasicNameValuePair> parameters = new ArrayList<BasicNameValuePair>();
+       */
+/* List<BasicNameValuePair> parameters = new ArrayList<BasicNameValuePair>();
         parameters.add(new BasicNameValuePair("userid", userName));
         parameters.add(new BasicNameValuePair("value", pwd));
-        parameters.add(new BasicNameValuePair("ipaddress", "10.10.10.10"));*/
+        parameters.add(new BasicNameValuePair("ipaddress", "10.10.10.10"));*//*
+
 //create a connection manager
         X509TrustManager tm = new X509TrustManager()
         {
@@ -419,7 +422,7 @@ public String getOpenId1(String ip ,int port,String url1){
             }
         };
 
-        //这个好像是HOST验证
+        //这个是HOST验证
         X509HostnameVerifier hostnameVerifier = new X509HostnameVerifier() {
             public boolean verify(String arg0, SSLSession arg1) {
                 return true;
@@ -486,13 +489,15 @@ public String getOpenId1(String ip ,int port,String url1){
         }
         Map<String, Object> stringObjectMap = stringMapHashMap.get(neId);
         System.out.println(stringObjectMap.get("resultTime"));
-       /*Map<String,String> retMap = new ParseResponse().getParseResponse(ret);
+       */
+/*Map<String,String> retMap = new ParseResponse().getParseResponse(ret);
         if (retMap.get("code").equals("0")) {
             //调用方法将结果集转化为推送数据
             String result =  retMap.get("data");
             List<Map<String,String>>  list= JSONArray.parseObject(result);
             System.out.println(object);
-        }*/
+        }*//*
+
     }
 
     @Test
@@ -539,3 +544,4 @@ public String getOpenId1(String ip ,int port,String url1){
 
 
 }
+*/
