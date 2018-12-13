@@ -106,7 +106,7 @@ public class HttpClientUtils {
 				cm.setDefaultMaxPerRoute(50);
 				cm.setValidateAfterInactivity(1000);
 				SocketConfig sc = SocketConfig.custom().setTcpNoDelay(true).setSoReuseAddress(true).setSoTimeout(50000).setSoLinger(1500).setSoKeepAlive(true).build();
-				RequestConfig rc = RequestConfig.custom().setConnectionRequestTimeout(30000).setConnectTimeout(30000).setSocketTimeout(30000).build();
+				RequestConfig rc = RequestConfig.custom().setConnectionRequestTimeout(50000).setConnectTimeout(50000).setSocketTimeout(50000).build();
 				INSTANCE = HttpClients.custom().setRetryHandler(rh).setConnectionManager(cm).setDefaultSocketConfig(sc).setDefaultRequestConfig(rc).setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36").build();
 			} catch (Exception e) {
 				e.printStackTrace();
