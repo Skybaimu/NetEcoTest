@@ -79,13 +79,14 @@ public class HttpClientUtils {
 			};
 
 			try {
+				//TLS1.0与SSL3.0基本上没有太大的差别，可粗略理解为TLS是SSL的继承者，但它们使用的是相同的SSLContext
 				SSLContext sslcontext = SSLContext.getInstance("TLS");
 				sslcontext.init(null, new TrustManager[] { new X509TrustManager() {
 					@Override
 					public X509Certificate[] getAcceptedIssuers() {
 						return null;
 					}
-
+					//证书验证机制设为跳过
 					@Override
 					public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
 					}
@@ -94,7 +95,7 @@ public class HttpClientUtils {
 					public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
 					}
 				}}, null);
-
+				//将自身的SSLContext注册到工厂
 				Registry<ConnectionSocketFactory> registry = RegistryBuilder.<ConnectionSocketFactory>create()
 						.register("http", PlainConnectionSocketFactory.INSTANCE)
 						.register("https", new SSLConnectionSocketFactory(sslcontext, NoopHostnameVerifier.INSTANCE
@@ -102,10 +103,13 @@ public class HttpClientUtils {
 						.build();
 
 				PoolingHttpClientConnectionManager cm = new PoolingHttpClientConnectionManager(registry);
+				//设置最大连接数
 				cm.setMaxTotal(200);
 				cm.setDefaultMaxPerRoute(50);
 				cm.setValidateAfterInactivity(1000);
+				//设置Socket超时时间, 设置为keepAlive
 				SocketConfig sc = SocketConfig.custom().setTcpNoDelay(true).setSoReuseAddress(true).setSoTimeout(50000).setSoLinger(1500).setSoKeepAlive(true).build();
+				//设置request超时时间
 				RequestConfig rc = RequestConfig.custom().setConnectionRequestTimeout(50000).setConnectTimeout(50000).setSocketTimeout(50000).build();
 				INSTANCE = HttpClients.custom().setRetryHandler(rh).setConnectionManager(cm).setDefaultSocketConfig(sc).setDefaultRequestConfig(rc).setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36").build();
 			} catch (Exception e) {
@@ -125,15 +129,19 @@ public class HttpClientUtils {
 			throw new ClientProtocolException("Unexpected HTTP Status Code: " + status);
 		}
 	};
-
+/**
+ * 使用ajax执行查询
+ * */
 	private static final <T> T ajax(String url, String type, List<NameValuePair> data, List<Header> headers) throws Exception {
 		if (StringUtils.isBlank(url)) {
 			return null;
 		}
 		T response = null;
+		//POST 请求方式
 		if ("POST".equalsIgnoreCase(type)) {
 			URIBuilder builder = new URIBuilder(url);
 			HttpPost httppost = new HttpPost(builder.build());
+			//设置请求头
 			if (headers != null && headers.size() > 0) {
 				httppost.setHeaders(headers.toArray(new Header[headers.size()]));
 			}

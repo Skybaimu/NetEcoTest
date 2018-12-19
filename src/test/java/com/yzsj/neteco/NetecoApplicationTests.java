@@ -285,7 +285,7 @@ public String getOpenId1(String ip ,int port,String url1){
             }
         };
 
-        //这个好像是HOST验证
+        //这个是HOST验证
         X509HostnameVerifier hostnameVerifier = new X509HostnameVerifier() {
             public boolean verify(String arg0, SSLSession arg1) {
                 return true;

@@ -37,9 +37,12 @@ import org.springframework.web.client.RestTemplate;
 @Component
 @EnableScheduling
 public class RemoteServer {
+
+	//访问请求头
 	public Header openHeader = null;
+
+	//指标id-TAGId对应表 位置在所在程序文件夹下"TAGId.xlsx"
 	public  Map<String, String> INFO = new HashMap<>();
-	public  Map<String, String> pmMap = new HashMap<String, String>();
 	private static Logger log = LoggerFactory.getLogger(RedisManager.class);
 
    @Autowired
@@ -48,6 +51,9 @@ public class RemoteServer {
 	@Autowired
 	private RedisManager redisManager;
 
+	/**
+	 * 初始化指标-TAGId对应表
+	 * */
 	@PostConstruct
 	public void loadTag() {
 		String path = new File("").getAbsolutePath()+"\\TAGId.xlsx";
@@ -64,7 +70,7 @@ public class RemoteServer {
 	}
 
 	/**
-	 * 根据ip 端口 url获取openId
+	 * 初始化 根据ip 端口 url获取openId
 	 * 
 	 * @return
 	 */
@@ -76,6 +82,7 @@ public class RemoteServer {
 			data.add(new BasicNameValuePair("userid", config.getUserid()));
 			data.add(new BasicNameValuePair("value", config.getPassword()));
 			data.add(new BasicNameValuePair("ipaddress", config.getIpAddress()));
+			//使用HttpClient连接池进行查询
 			String result = HttpClientUtils.put(url, data);
 			JSONObject obj = toJson(result);
 			if (result != null) {
@@ -92,13 +99,24 @@ public class RemoteServer {
 		}
 	}
 
+	/**
+	 * 初始化资产指标等基础数据
+	 *
+	 * */
+	@PostConstruct
+	public void initData() {
+		if (openHeader == null) {
+			setOpenId();
+		}
+
+	}
+
 
 	/**
 	 * 定时任务按时间获取指标数据并推送
 	 * */
 	@Scheduled(initialDelay = 5000, fixedDelay = 5000)
 	public void publishData() {
-
 		if (openHeader == null) {
 			setOpenId();
 		}
@@ -134,12 +152,15 @@ public class RemoteServer {
 		}
 		if(INFO.isEmpty())loadTag();
 		Map<String, String> map = new HashMap<String, String>();
+		int flag = -1;
 		try {
 			for (int i = 0; true; i++) {
 				List<Header> headers = new ArrayList<Header>();
 				headers.add(openHeader);
+				//设置分页
 				headers.add(new BasicHeader("params", "{\"pageIndex\":" + i + ",\"pageSize\":" + 4000 + "}"));
 				String url = "https://" + config.getIp() + ":" + config.getPort() + "/rest/openapi/neteco/pmdata";
+				//执行查询
 				String result = HttpClientUtils.get(url, null, headers);
 				JSONObject resultObj = toJson(result);
 				if(resultObj.getString("code").equals("1204")){
@@ -149,15 +170,19 @@ public class RemoteServer {
 				JSONArray jsonArray = resultObj.getJSONArray("data");
 				for (int j = 0; j < jsonArray.size(); j++) {
 					JSONObject obj = (JSONObject) jsonArray.get(j);
+					//根据excel表对应关系获取TAGId 和指标值
 					map.put(INFO.get(obj.getString("dn")+obj.getString("counterId")),obj.getString("counterValue"));
 				}
+				flag = i;
 				if (StringUtils.isBlank(result)) {
 					break;
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.error("获取实时指标数据异常或已完整获取数据");
+			if(flag == -1){
+				log.error("获取指标数据异常");
+			}
 		}
 		return map;
 	}
@@ -169,13 +194,16 @@ public class RemoteServer {
 			setOpenId();
 		}
 		String alarmData = "";
+		int flag = -1;
 		try {
 			for (int i = 0; true; i++) {
 				List<Header> headers = new ArrayList<Header>();
+				//设置请求头
 				headers.add(openHeader);
 				headers.add(new BasicHeader("pageNo" , "" + i));
 				headers.add(new BasicHeader("pageSize","100"));
 				String url = "https://" + config.getIp() + ":" + config.getPort() + "/rest/openapi/alarm";
+				//执行查询
 				String result = HttpClientUtils.get(url, null, headers);
 				JSONObject resultObj = toJson(result);
 				if(resultObj.getString("code").equals("1204")){
@@ -183,15 +211,20 @@ public class RemoteServer {
 					setOpenId();
 				}
 				String str = resultObj.getString("data");
+				//截取报警数组
 				alarmData += str.substring(1,str.length()-1) + ",";
+				flag = i;
 				if (StringUtils.isBlank(result)) {
 					break;
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			log.error("获取报警数据异常或已完整获取数据");
+			if(flag == -1){
+				log.error("获取报警数据异常");
+			}
 		}
+		//拼接所有json数组
 		return "[" + alarmData.substring(0,alarmData.length()-1) + "]";
 
 	}
@@ -207,17 +240,17 @@ public class RemoteServer {
 
 
 
-//	@Test
-	//数据输出测试
+	/**
+	 * 获取指标数据对应表 输出到D盘下"指标对应表.txt"
+	 * */
 	public  void test(){
 		if (openHeader == null) {
 			setOpenId();
 		}
 		Map<String, String> map = new HashMap<String, String>();
-		File file = new File("d:/实时指标1.txt");
+		File file = new File("d:/DCIM/WMK/指标对应表.txt");
 		String finalData = "";
 		try {
-
 			for (int i = 0; true; i++) {
 				List<Header> headers = new ArrayList<Header>();
 				headers.add(openHeader);

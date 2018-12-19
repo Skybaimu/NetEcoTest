@@ -22,7 +22,7 @@ import java.util.Map;
 
 /**
  * 获取openId
- * @author baimu
+ * @author lyj
  * @date 2018-11-21
  *
  * */
